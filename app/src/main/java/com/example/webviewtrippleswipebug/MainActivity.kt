@@ -23,7 +23,14 @@ class MainActivity : ComponentActivity() {
         val data = """
             <!DOCTYPE html>
             <html>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <style>
+                        span {
+                            background-color: red;
+                        }
+                    </style>
+                </head>
                 <body>
                     Non eram nescius, Brute, cum, quae summis ingeniis exquisitaque doctrina philosophi Graeco sermone tractavissent, ea Latinis litteris mandaremus, fore ut hic noster labor in varias reprehensiones incurreret; nam quibusdam, et iis quidem non admodum indoctis, totum hoc displicet philosophari. Quidam autem non tam id reprehendunt, si remissius agatur, sed tantum studium tamque multam operam ponendam in eo non arbitrantur. Erunt etiam, et hi quidem eruditi Graecis litteris, contemnentes Latinas, qui se dicant in Graecis legendis operam malle consumere. Postremo aliquos futuros suspicor, qui me ad alias litteras vocent, genus hoc scribendi, etsi sit elegans, personae tamen et dignitatis esse negent.
                     Contra quos omnes dicendum breviter existimo: quamquam philosophiae quidem vituperatoribus satis responsum est eo libro, quo a nobis philosophia defensa et collaudata est, cum esset accusata et vituperata ab Hortensio. Qui liber cum et tibi probatus videretur et iis, quos ego posse iudicare arbitrarer, plura suscepi, veritus ne movere hominum studia viderer, retinere non posse. Qui autem, si maxime hoc placeat, moderatius tamen id volunt fieri, difficilem quandam temperantiam postulant in eo, quod semel admissum coerceri reprimique non potest, ut propemodum iustioribus utamur illis, qui omnino avocent a philosophia, quam his, qui rebus infinitis modum constituant in reque eo meliore, quo maior sit, mediocritatem desiderent.
@@ -32,10 +39,17 @@ class MainActivity : ComponentActivity() {
                         [
                             "pointerdown",
                             "pointerup",
+                            "touchstart",
+                            "touchend",
+                            "click"
                         ].forEach(type => {
                             document.addEventListener(type, e => {
                                 console.log(type);
-                                document.body.innerHTML += "<br>" + type;
+                                if (type == "pointerup" || type == "pointerdown") {
+                                    document.body.innerHTML += "<br><span>" + type + "</span>";
+                                } else {
+                                    document.body.innerHTML += "<br>" + type;
+                                }
                                 window.scrollTo(0, document.body.scrollHeight);
                             }, true);
                         });
